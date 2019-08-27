@@ -101,6 +101,10 @@ CREATE TABLE discounts (
   customer_id INT UNSIGNED NOT NULL,
   good_id INT UNSIGNED NOT NULL,
   discount FLOAT UNSIGNED COMMENT 'The amont of discount from 0.0 to 1.0'
+  started_at DATETIME,
+  finished_at DATETIME,
+  created_at DATETIME DEFAULT NOW(),
+  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
 );
   
 
@@ -108,6 +112,8 @@ CREATE TABLE discounts (
 CREATE TABLE storehouses (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR (255) NOT NULL,
+  created_at DATETIME DEFAULT NOW(),
+  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
 );
 
 -- Таблица связи складов и продуктов
@@ -116,6 +122,8 @@ CREATE TABLE goods_storehouses (
   storehouse_id INT NOT NULL UNSIGNED,
   good_id INT NOT NULL UNSIGNED,
   value INT UNSIGNED COMMENT 'Amount of goods in a storehouse'
+  created_at DATETIME DEFAULT NOW(),
+  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
 );
 
 -- Таблица отзывов
