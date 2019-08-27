@@ -6,7 +6,7 @@ USE e-commerce;
 
 -- Создаём таблицу покупателей
 CREATE TABLE customers (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   firstname VARCHAR(100) NOT NULL, 
   lastname VARCHAR(100) NOT NULL,
   email VARCHAR(120) NOT NULL UNIQUE,
@@ -27,7 +27,7 @@ CREATE TABLE profiles (
 
 -- Таблица список команды тех.поддержки
 CREATE TABLE customer_service (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   firstname VARCHAR(100) NOT NULL, 
   lastname VARCHAR(100) NOT NULL,
   email VARCHAR(120) NOT NULL UNIQUE,
@@ -51,7 +51,7 @@ CREATE TABLE messages (
 
 -- Таблица товаров
 CREATE TABLE goods (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
   description TEXT NOT NULL,
   catalog_id INT UNSIGNED NOT NULL,
@@ -62,13 +62,13 @@ CREATE TABLE goods (
 
 -- Таблица групп товаров
 CREATE TABLE catalogs (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(150) NOT NULL UNIQUE COMMENT 'category of products' 
 );
 
 -- Таблица медиафайлов
 CREATE TABLE media (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   media_type_id INT UNSIGNED NOT NULL,
   good_id INT UNSIGNED NOT NULL,
   filename VARCHAR(255) NOT NULL,
@@ -80,13 +80,13 @@ CREATE TABLE media (
 
 -- Таблица типов медиафайлов
 CREATE TABLE media_types (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE
 );
 
 -- Таблица заказов
 CREATE TABLE orders (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   customer_id INT UNSIGNED NOT NULL,
   good_id INT UNSIGNED NOT NULL,
   paid BOOLEAN,
@@ -97,20 +97,22 @@ CREATE TABLE orders (
 
 --Таблица скидок
 CREATE TABLE discounts (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   customer_id INT UNSIGNED NOT NULL,
   good_id INT UNSIGNED NOT NULL,
-  discount FLOAT UNSIGNED COMMENT 'The amont of discount from 0.0 to 1.0'
+  discount FLOAT UNSIGNED COMMENT 'The amount of discount from 0.0 to 1.0'
   started_at DATETIME,
   finished_at DATETIME,
   created_at DATETIME DEFAULT NOW(),
-  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
+  updated_at DATETIME DEFAULT NOW() ON UPDATE NOW(),
+  KEY index_of_user_id(customer_id),
+  KEY index_of_good_id(good_id),
 );
   
 
 -- Таблица складов
 CREATE TABLE storehouses (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR (255) NOT NULL,
   created_at DATETIME DEFAULT NOW(),
   updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
@@ -118,7 +120,7 @@ CREATE TABLE storehouses (
 
 -- Таблица связи складов и продуктов
 CREATE TABLE goods_storehouses (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   storehouse_id INT NOT NULL UNSIGNED,
   good_id INT NOT NULL UNSIGNED,
   value INT UNSIGNED COMMENT 'Amount of goods in a storehouse'
@@ -128,7 +130,7 @@ CREATE TABLE goods_storehouses (
 
 -- Таблица отзывов
 CREATE TABLE reviews (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   customer_id INT UNSIGNED NOT NULL,
   good_id INT UNSIGNED NOT NULL,
   body TEXT NOT NULL COMMENT 'Text of review',
