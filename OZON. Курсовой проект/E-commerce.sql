@@ -54,16 +54,16 @@ CREATE TABLE goods (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
   description TEXT NOT NULL,
-  group_id INT UNSIGNED NOT NULL,
-  media_id INT UNSIGNED NOT NULL,
+  catalog_id INT UNSIGNED NOT NULL,
+  media_id INT UNSIGNED NOT NULL, COMMENT 'photo or video content'
   created_at DATETIME DEFAULT NOW(),
   updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
 );
 
 -- Таблица групп товаров
-CREATE TABLE groups (
+CREATE TABLE catalogs (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(150) NOT NULL UNIQUE
+  name VARCHAR(150) NOT NULL UNIQUE COMMENT 'category of products' 
 );
 
 -- Таблица медиафайлов
@@ -95,12 +95,35 @@ CREATE TABLE orders (
   updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
 );
 
+--Таблица скидок
+CREATE TABLE discounts (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT UNSIGNED NOT NULL,
+  good_id INT UNSIGNED NOT NULL,
+  discount FLOAT UNSIGNED COMMENT 'The amont of discount from 0.0 to 1.0'
+);
+  
+
+-- Таблица складов
+CREATE TABLE storehouses (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR (255) NOT NULL,
+);
+
+-- Таблица связи складов и продуктов
+CREATE TABLE goods_storehouses (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  storehouse_id INT NOT NULL UNSIGNED,
+  good_id INT NOT NULL UNSIGNED,
+  value INT UNSIGNED COMMENT 'Amount of goods in a storehouse'
+);
+
 -- Таблица отзывов
 CREATE TABLE reviews (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   customer_id INT UNSIGNED NOT NULL,
   good_id INT UNSIGNED NOT NULL,
-  body TEXT NOT NULL,
+  body TEXT NOT NULL COMMENT 'Text of review',
   created_at DATETIME DEFAULT NOW(),
   updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
 );
