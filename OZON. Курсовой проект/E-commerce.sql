@@ -100,13 +100,13 @@ CREATE TABLE discounts (
   id SERIAL PRIMARY KEY,
   customer_id INT UNSIGNED NOT NULL,
   good_id INT UNSIGNED NOT NULL,
-  discount FLOAT UNSIGNED COMMENT 'The amount of discount from 0.0 to 1.0'
+  discount FLOAT UNSIGNED COMMENT 'The amount of discount from 0.0 to 1.0',
   started_at DATETIME,
   finished_at DATETIME,
   created_at DATETIME DEFAULT NOW(),
   updated_at DATETIME DEFAULT NOW() ON UPDATE NOW(),
   KEY index_of_user_id(customer_id),
-  KEY index_of_good_id(good_id),
+  KEY index_of_good_id(good_id)
 );
   
 
@@ -121,9 +121,9 @@ CREATE TABLE storehouses (
 -- Таблица связи складов и продуктов
 CREATE TABLE goods_storehouses (
   id SERIAL PRIMARY KEY,
-  storehouse_id INT NOT NULL UNSIGNED,
-  good_id INT NOT NULL UNSIGNED,
-  value INT UNSIGNED COMMENT 'Amount of goods in a storehouse'
+  storehouse_id INT UNSIGNED NOT NULL,
+  good_id INT UNSIGNED NOT NULL,
+  value INT UNSIGNED COMMENT 'Amount of goods in a storehouse',
   created_at DATETIME DEFAULT NOW(),
   updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
 );
