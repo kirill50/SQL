@@ -133,6 +133,7 @@ CREATE TABLE reviews (
   id SERIAL PRIMARY KEY,
   customer_id INT UNSIGNED NOT NULL,
   good_id INT UNSIGNED NOT NULL,
+  rankings TINYINT NOT NULL,
   body TEXT NOT NULL COMMENT 'Text of review',
   created_at DATETIME DEFAULT NOW(),
   updated_at DATETIME DEFAULT NOW() ON UPDATE NOW()
