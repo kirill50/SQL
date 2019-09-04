@@ -10,6 +10,10 @@ UPDATE customers SET updateded_at = NOW();
 UPDATE customers SET created_at=STR_TO_DATE(created_at,'%d.%m.%Y %H:%i');
 UPDATE customers SET updated_at=STR_TO_DATE(updated_at,'%d.%m.%Y %H:%i');
 
+ALTER TABLE customers
+  SET created_at DATETIME,
+  SET updated_at DATETIME,
+
 ALTER TABLE customers ALTER COLUMN created_at DATETIME 
 ALTER TABLE customers ALTER COLUMN updated_at DATETIME
 3. В таблице складских запасов storehouses_products в поле value могут встречаться самыеразные цифры: 0, если товар закончился и выше нуля, если на складе имеются запасы.Необходимо отсортировать записи таким образом, чтобы они выводились в порядкеувеличения значения value. Однако, нулевые запасы должны выводиться в конце, после всехзаписей.
